@@ -117,6 +117,7 @@
       <div>
         <label class="block text-sm font-semibold text-gray-700 mb-1.5">ภาคเรียน</label>
         <select bind:value={semester} required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+          <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
         </select>
