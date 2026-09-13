@@ -20,12 +20,8 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
   <div class="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md text-center border border-gray-100">
     <div class="mb-8">
-      <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <h1 class="text-3xl font-bold text-gray-800 mb-2 tracking-tight">ระบบจัดเก็บ ปพ.5</h1>
+      <img src="/logo.jpg" alt="porpor5 logo" class="w-24 h-24 object-contain mx-auto mb-4 rounded-2xl shadow-sm border border-gray-100" />
+      <h1 class="text-3xl font-bold text-gray-800 mb-2 tracking-tight">porpor5</h1>
       <p class="text-gray-500">กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
     </div>
     
