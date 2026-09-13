@@ -26,10 +26,9 @@ serve(async (req) => {
     const file = formData.get('file') as File
     const year = formData.get('year') as string
     const grade = formData.get('grade') as string
-    const room = formData.get('room') as string
-    const rootFolderId = Deno.env.get('GOOGLE_DRIVE_ROOT_FOLDER_ID')
+    const rootFolderId = Deno.env.get('DRIVE_FOLDER_ID') ?? Deno.env.get('GOOGLE_DRIVE_ROOT_FOLDER_ID')
 
-    if (!file || !year || !grade || !room || !rootFolderId) {
+    if (!file || !year || !grade || !rootFolderId) {
       throw new Error('Missing required fields')
     }
 
@@ -74,13 +73,12 @@ serve(async (req) => {
       return createData.id
     }
 
-    // 4. จัดการโครงสร้าง Folder (ปีการศึกษา > ระดับชั้น > ห้อง)
+    // 4. จัดการโครงสร้าง Folder (ปีการศึกษา > ระดับชั้น)
     const yearFolderId = await getOrCreateFolder(year, rootFolderId)
     const gradeFolderId = await getOrCreateFolder(grade, yearFolderId)
-    const roomFolderId = await getOrCreateFolder(room, gradeFolderId)
 
     // 5. อัปโหลดไฟล์ไปยัง Folder ที่กำหนด
-    const metadata = { name: file.name, parents: [roomFolderId] }
+    const metadata = { name: file.name, parents: [gradeFolderId] }
     const fileBody = new FormData()
     fileBody.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }))
     fileBody.append('file', file)
