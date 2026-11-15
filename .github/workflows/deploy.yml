@@ -55,10 +55,20 @@ jobs:
             # Pull the latest image
             docker pull ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
             
-            # Stop and remove the old container if it exists
-            docker stop porpor5-frontend || true
-            docker rm porpor5-frontend || true
+            echo "=== Diagnostic: Check Nginx configuration ==="
+            grep -rn "porpor5" /etc/nginx/ 2>/dev/null || true
+            grep -rn "bannoenmaprang" /etc/nginx/ 2>/dev/null || true
+            
+            echo "=== Diagnostic: Check Port 3000 and Docker Containers ==="
+            docker ps -a
+            ss -tulpn | grep 3000 || netstat -tulpn | grep 3000 || true
+
+            # Remove any container holding port 3000
+            docker ps -a --filter "publish=3000" -q | xargs -r docker rm -f || true
+
+            # Stop and remove any previous porpor5 containers
+            docker rm -f porpor5-frontend || true
+            docker rm -f porpor5 || true
             
             # Run the new container
-            # Map port 80 of container to an available port on host, e.g., 3000
-            docker run -d -p 3000:80 --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
+            docker run -d -p 3000:80 --restart always --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
