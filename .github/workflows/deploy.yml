@@ -63,12 +63,9 @@ jobs:
             docker ps -a
             ss -tulpn | grep 3000 || netstat -tulpn | grep 3000 || true
 
-            # Remove any container holding port 3000
-            docker ps -a --filter "publish=3000" -q | xargs -r docker rm -f || true
-
             # Stop and remove any previous porpor5 containers
             docker rm -f porpor5-frontend || true
             docker rm -f porpor5 || true
             
-            # Run the new container
-            docker run -d -p 3000:80 --restart always --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
+            # Run the new container on port 3005 (to avoid port 3000 collision with balldoernsai.cloud)
+            docker run -d -p 3005:80 --restart always --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
