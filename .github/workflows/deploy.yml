@@ -67,5 +67,5 @@ jobs:
             docker rm -f porpor5-frontend || true
             docker rm -f porpor5 || true
             
-            # Run the new container on port 3005 (to avoid port 3000 collision with balldoernsai.cloud)
-            docker run -d -p 3005:80 --restart always --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
+            # Run the new container on port 3010 (3000 is balldoernsai, 3002 is chatmoney-web, 3005 is chatmoney-api)
+            docker run -d -p 3010:80 --restart always --name porpor5-frontend ghcr.io/${{ github.repository_owner }}/porpor5-frontend:latest
